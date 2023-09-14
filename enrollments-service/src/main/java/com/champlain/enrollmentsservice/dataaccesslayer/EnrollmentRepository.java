@@ -8,6 +8,13 @@ public interface EnrollmentRepository extends ReactiveCrudRepository<Enrollment,
 
     Mono<Enrollment> findEnrollmentByEnrollmentId(String enrollmentId);
 
-    //Mono<Boolean> existsByEnrollmentId(String enrollmentId);
+    Flux<Enrollment> findAllEnrollmentsByStudentId(String studentId);
+
+
+    Flux<Enrollment> findAllEnrollmentsByCourseId(String courseId);
+
+
+    Flux<Enrollment> findAllEnrollmentsByEnrollmentYear(Integer enrollmentYear);
+
 
 }

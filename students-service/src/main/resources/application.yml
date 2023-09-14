@@ -1,39 +1,23 @@
-server:
-  port: 7001
-
+server.port: 7001
 logging:
   level:
     root: INFO
     com.champlain: DEBUG
-
 spring:
   config:
     activate:
       on-profile: default
-
   data:
     mongodb:
       port: 0
       database: students
-
   mongodb:
-      embedded:
-        version: 4.0.21
-
----
-spring:
-  config:
-    activate:
-      on-profile: integration
-  data:
-    mongodb:
-      host: localhost
-      port: 27017
-      database: students
-      username: user
-      password: pwd
-      authentication-database: admin
-
+    embedded:
+      version: 4.0.21
+de.flapdoodle:
+  mongodb:
+    embedded:
+      version: 5.0.5
 ---
 spring:
   config:

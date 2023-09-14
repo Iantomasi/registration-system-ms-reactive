@@ -32,10 +32,11 @@ dependencies {
 	annotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}",
 			"org.projectlombok:lombok:${lombokVersion}", "org.projectlombok:lombok-mapstruct-binding:${lombokMapstructBindingVersion}"
 	testAnnotationProcessor "org.mapstruct:mapstruct-processor:${mapstructVersion}"
-	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.6.2'
+	testImplementation 'de.flapdoodle.embed:de.flapdoodle.embed.mongo.spring30x:4.9.2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.projectreactor:reactor-test'
 
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 }
 

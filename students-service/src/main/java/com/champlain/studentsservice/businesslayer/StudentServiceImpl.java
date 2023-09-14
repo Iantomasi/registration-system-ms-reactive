@@ -38,13 +38,11 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public Mono<StudentResponseDTO> addStudent(Mono<StudentRequestDTO> studentRequestDTO) {
-
         return studentRequestDTO
                 .map(EntityDTOUtils::toStudentEntity)
                 .doOnNext(e -> e.setStudentId(EntityDTOUtils.generateUUIDString()))
                 .flatMap(studentRepository::insert)
                 .map(EntityDTOUtils::toStudentResponseDTO);
-
     }
 
     @Override
@@ -64,7 +62,6 @@ public class StudentServiceImpl implements StudentService{
                 .flatMap(studentRepository::save)
                 .map(EntityDTOUtils::toStudentResponseDTO);
     }
-
 
     @Override
     public Mono<Void> deleteStudentById(String studentId) {

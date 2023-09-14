@@ -40,10 +40,12 @@ public class DatabaseLoaderService implements CommandLineRunner {
                 .build();
 
 
+
+
         Flux.just(course1, course2)
-                .flatMap(courseRepository::insert)
-                .log()
-                .subscribe();
+                .flatMap(c -> courseRepository.insert(Mono.just(c))
+                        .log(c.toString())).subscribe();
+
 
 
     }

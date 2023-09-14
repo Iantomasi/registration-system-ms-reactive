@@ -20,6 +20,11 @@ spring:
       embedded:
         version: 4.0.21
 
+de.flapdoodle:
+  mongodb:
+    embedded:
+      version: 5.0.5
+
 ---
 spring:
   config:

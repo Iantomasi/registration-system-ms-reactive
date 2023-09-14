@@ -11,6 +11,11 @@ spring:
     activate:
       on-profile: default
 
+  r2dbc:
+    url: r2dbc:h2:mem:///enrollments
+    username: user
+    password: pwd
+
 app:
   students-service:
     host: localhost

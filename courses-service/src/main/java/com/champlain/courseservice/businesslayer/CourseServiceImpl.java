@@ -45,7 +45,7 @@ public class CourseServiceImpl implements CourseService{
     }
 
     @Override
-    public Mono<CourseResponseDTO> updateStudentById(Mono<CourseRequestDTO> courseRequestDTO, String courseId) {
+    public Mono<CourseResponseDTO> updateCourseById(Mono<CourseRequestDTO> courseRequestDTO, String courseId) {
         if(courseId.length() != 36){
             return Mono.error(new InvalidInputException("Invalid courseId, length must be 36 characters"));
         }

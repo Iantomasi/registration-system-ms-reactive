@@ -10,6 +10,6 @@ public interface CourseService {
     Flux<CourseResponseDTO> getAllCourses();
     Mono<CourseResponseDTO> getCourseById(String courseId);
     Mono<CourseResponseDTO> addCourse(Mono<CourseRequestDTO> courseRequestDTO);
-    Mono<CourseResponseDTO> updateStudentById(Mono<CourseRequestDTO> courseRequestDTO,String courseId);
+    Mono<CourseResponseDTO> updateCourseById(Mono<CourseRequestDTO> courseRequestDTO, String courseId);
     Mono<Void> deleteCourseById(String courseId);
 }

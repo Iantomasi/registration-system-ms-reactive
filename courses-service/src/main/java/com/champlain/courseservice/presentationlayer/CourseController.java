@@ -41,7 +41,7 @@ public class CourseController {
 
     @PutMapping("/{courseId}")
     public Mono<ResponseEntity<CourseResponseDTO>> updateCourse(@PathVariable String courseId, @RequestBody Mono<CourseRequestDTO> courseRequestBody){
-        return this.courseService.updateStudentById(courseRequestBody, courseId)
+        return this.courseService.updateCourseById(courseRequestBody, courseId)
                 .map(course -> ResponseEntity.ok().body(course))
                 .defaultIfEmpty(ResponseEntity.notFound().build());
     }

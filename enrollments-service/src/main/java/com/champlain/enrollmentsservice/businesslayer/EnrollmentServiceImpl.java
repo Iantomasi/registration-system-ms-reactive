@@ -1,6 +1,5 @@
 package com.champlain.enrollmentsservice.businesslayer;
 
-import com.champlain.enrollmentsservice.dataaccesslayer.Enrollment;
 import com.champlain.enrollmentsservice.dataaccesslayer.EnrollmentRepository;
 import com.champlain.enrollmentsservice.domainclientlayer.CourseClient;
 import com.champlain.enrollmentsservice.domainclientlayer.StudentClient;
@@ -13,8 +12,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
@@ -26,37 +23,28 @@ public class EnrollmentServiceImpl implements EnrollmentService {
     private final CourseClient courseClient;
 
     @Override
-    public Flux<EnrollmentResponseDTO> getAllEnrollments(Map<String, String> queryParams) {
-        Flux<Enrollment> enrollmentFlux = enrollmentRepository.findAll();
+    public Flux<EnrollmentResponseDTO> getAllEnrollments(Map<String , String> querry) {
+        String studentId = querry.get("studentId");
+        String enrollmentYear = querry.get("enrollmentYear");
+        String courseId = querry.get("courseId");
 
-        String studentId = queryParams.get("studentId");
-        String courseId = queryParams.get("courseId");
-        String enrollmentYearParam = queryParams.get("enrollmentYear");
+        if(studentId !=null) {
+            return enrollmentRepository.findAllEnrollmentsByStudentId(studentId).map(EntityDTOUtils::toEnrollmentResponseDTO);
 
-        Integer enrollmentYear = null;
-        boolean invalidYear = false;
-
-        if (enrollmentYearParam != null) {
-            try {
-                enrollmentYear = Integer.valueOf(enrollmentYearParam);
-            } catch (NumberFormatException e) {
-                invalidYear = true;
-            }
         }
-        if (invalidYear) {
-            return Flux.error(new InvalidInputException("Invalid year"));
+        if(enrollmentYear != null) {
+
+            return enrollmentRepository.findAllEnrollmentsByEnrollmentYear(Integer.valueOf(enrollmentYear)).map(EntityDTOUtils::toEnrollmentResponseDTO);
         }
 
-        if (studentId != null) { enrollmentFlux = enrollmentFlux.filter(enrollments -> enrollments.getStudentId().equals(studentId)); }
-        if (courseId != null) { enrollmentFlux = enrollmentFlux.filter(enrollments -> enrollments.getCourseId().equals(courseId)); }
 
-        if (enrollmentYear != null) {
-            final Integer finalEnrollmentYear = enrollmentYear;
-            enrollmentFlux = enrollmentFlux.filter(enrollments -> enrollments.getEnrollmentYear().equals(finalEnrollmentYear));
+        if(courseId !=null){
+            return enrollmentRepository.findAllEnrollmentsByCourseId(courseId).map(EntityDTOUtils::toEnrollmentResponseDTO);
         }
-        return enrollmentFlux.map(EntityDTOUtils::toEnrollmentResponseDTO);
+
+        return enrollmentRepository.findAll()
+                .map(EntityDTOUtils::toEnrollmentResponseDTO);
     }
-
 
     @Override
     public Mono<EnrollmentResponseDTO> getEnrollmentById(String enrollmentId) {
